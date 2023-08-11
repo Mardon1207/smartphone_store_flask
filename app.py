@@ -17,28 +17,110 @@ def get_all_smartphones():
 @app.route('/smartphones/brands', methods=['GET'])
 def get_all_brands():
     """Returns all brands in the database"""
-    pass
+    html=f"""
+    Salom o'zingizga yoqan brendni tanlang!<br>"""
+    for i in db.brands():
+        html=html+f"""\t<a href"">{i}</a>"""
+    return html
 
 
 # view all smartphones by brand
 @app.route('/smartphones/<brand>', methods=['GET'])
 def get_smartphone_by_brand(brand):
     """Returns all products by brand"""
-    pass
+    html = """<table border="1px">
+    <tr>
+        <th>Nomi</th>
+        <th>Xotira</th>
+        <th>Rangi</th>
+        <th>Narxi</th>
+    </tr>
+    """
+    data=db.get_smartphone_by_brand(brand)
+    for i in data:
+        name = i['name']
+        color = i['color']
+        price = i['price']
+        memory = i['memory']
+        ram=i['RAM']
+
+        row = f"""<tr>
+                    <td>{name}</td>
+                    <td>{ram}/{memory}</td>
+                    <td>{color}</td>
+                    <td>{price}</td>
+                 </tr>"""
+        
+        html += row
+    
+    html += "</table>"
+    return html
 
 
 # view smartphone by name
-@app.route('/smartphones/name/<name>', methods=['GET'])
-def get_smartphone_by_name(name):
+@app.route('/smartphones/name/<brand>/<name>', methods=['GET'])
+def get_smartphone_by_name(brand,name):
     """Returns a product by name"""
-    pass
+    html = """<table border="1px">
+    <tr>
+        <th>Nomi</th>
+        <th>Xotira</th>
+        <th>Rangi</th>
+        <th>Narxi</th>
+    </tr>
+    """
+    data=db.get_smartphone_by_name(brand,name)
+    for i in data:
+        name = i['name']
+        color = i['color']
+        price = i['price']
+        memory = i['memory']
+        ram=i['RAM']
+
+        row = f"""<tr>
+                    <td>{name}</td>
+                    <td>{ram}/{memory}</td>
+                    <td>{color}</td>
+                    <td>{price}</td>
+                 </tr>"""
+        
+        html += row
+    
+    html += "</table>"
+    return html
 
 
 # view smartphone by price
-@app.route('/smartphones/price/<price>', methods=['GET'])
-def get_smartphone_by_price(price):
+@app.route('/smartphones/price/<brand>/<float:price>', methods=['GET'])
+def get_smartphone_by_price(brand,price):
     """Returns a product by price"""
-    pass
+    html = """<table border="1px">
+    <tr>
+        <th>Nomi</th>
+        <th>Xotira</th>
+        <th>Rangi</th>
+        <th>Narxi</th>
+    </tr>
+    """
+    data=db.get_smartphone_by_price(brand,price)
+    for i in data:
+        name = i['name']
+        color = i['color']
+        price = i['price']
+        memory = i['memory']
+        ram=i['RAM']
+
+        row = f"""<tr>
+                    <td>{name}</td>
+                    <td>{ram}/{memory}</td>
+                    <td>{color}</td>
+                    <td>{price}</td>
+                 </tr>"""
+        
+        html += row
+    
+    html += "</table>"
+    return html
 
 
 # view add smartphone
