@@ -47,7 +47,6 @@ for this project we will use a database class to store our data. The database cl
 - [ ] `get_smartphone_by_price` - this method will return a list of smartphone by specifying the smartphone price.
 - [ ] `delete_smartphone` - this method will delete a smartphone from the database.
 
-
 ## Endpoints
 
 - [ ] GET `/smartphone` - this endpoint will return a list of smartphone.
