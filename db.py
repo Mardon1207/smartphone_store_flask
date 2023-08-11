@@ -3,7 +3,7 @@ from tinydb import TinyDB, Query
 
 class SmartphoneDB:
     def __init__(self, db_path):
-        self.db = TinyDB(db_path)
+        self.db = TinyDB(db_path, indent=4)
         self.query = Query()
     
     def brands(self):
@@ -12,7 +12,6 @@ class SmartphoneDB:
     
     def get_smartphone_by_brand(self, brand):
         """Returns all products by brand"""
-        print(brand)
         return self.db.table(brand).all()
     
     def get_smartphone_by_name(self, brand,name):
@@ -25,9 +24,10 @@ class SmartphoneDB:
     
     def add_smartphone(self, smartphone, brand):
         """Adds a product to the database"""
-        pass
+        self.db.table(brand).insert(smartphone)
     
-    def delete_smartphone(self, doc_id, brand):
+    def delete_smartphone(self, doc_id:int, brand):
         """Deletes a product from the database"""
-        pass
+        print(brand)
+        self.db.table(brand).remove(doc_ids=[doc_id])
     
