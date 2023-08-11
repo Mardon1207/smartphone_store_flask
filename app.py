@@ -20,7 +20,7 @@ def get_all_brands():
     html=f"""
     Salom o'zingizga yoqan brendni tanlang!<br>"""
     for i in db.brands():
-        html=html+f"""\t<a href"">{i}</a>"""
+        html=html+f"""\t<a href="http://127.0.0.1:5000/smartphones/{i}">{i}</a>"""
     return html
 
 
@@ -124,17 +124,28 @@ def get_smartphone_by_price(brand,price):
 
 
 # view add smartphone
-@app.route('/smartphone/add', methods=['POST'])
-def add_smartphone():
+@app.route('/smartphone/add/<brand>', methods=['POST'])
+def add_smartphone(brand):
     """Adds a product to the database"""
-    pass
+    try:
+        smartphone = request.get_json()
+        db.add_smartphone(smartphone=smartphone,brand=brand)
+        return {"result": "Malumotlar bazasiga qo'shildi!"}
+    except:
+        return {"reuslt": "Xatolik!"}
 
 
 # view delete smartphone
-@app.route('/smartphone/delete/<doc_id>', methods=['DELETE'])
-def delete_smartphone(doc_id):
+@app.route('/smartphone/delete/<brand>/<int:doc_id>', methods=['DELETE'])
+def delete_smartphone(brand,doc_id):
     """Deletes a product from the database"""
-    pass
+    try:
+        db.delete_smartphone(brand=brand,doc_id=doc_id)
+        html="""Malumotlar bazasidan o'chirildi!"""
+        return html
+    except:
+        html="""Xatollik"""
+        return html
 
 
 if __name__ == '__main__':
